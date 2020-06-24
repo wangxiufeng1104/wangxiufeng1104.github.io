@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="王秀峰的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="CMake记录环境准备设置交叉编译目标平台1234# 软件平台set(CMAKE_SYSTEM_NAME Generic)# 处理器架构set(CMAKE_HOST_SYSTEM_PROCESSOR arm)  设置交叉编译工具  针对每项添加说明   1234567891011set(PREFIX &quot;arm-none-eabi-&quot;)set(CMAKE_C_COMPILER &quot;$&amp;#123;PRE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cmake">
+<meta property="og:url" content="http://yoursite.com/2020/06/24/cmake/index.html">
+<meta property="og:site_name" content="王秀峰的博客">
+<meta property="og:description" content="CMake记录环境准备设置交叉编译目标平台1234# 软件平台set(CMAKE_SYSTEM_NAME Generic)# 处理器架构set(CMAKE_HOST_SYSTEM_PROCESSOR arm)  设置交叉编译工具  针对每项添加说明   1234567891011set(PREFIX &quot;arm-none-eabi-&quot;)set(CMAKE_C_COMPILER &quot;$&amp;#123;PRE">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-24T08:56:51.379Z">
+<meta property="article:modified_time" content="2020-06-24T11:48:41.862Z">
+<meta property="article:author" content="王秀峰">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/24/cmake/"/>
+
+
+
+
+
+  <title>cmake | 王秀峰的博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王秀峰的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/24/cmake/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王秀峰">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王秀峰的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">cmake</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-24T16:56:51+08:00">
+                2020-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CMake记录"><a href="#CMake记录" class="headerlink" title="CMake记录"></a>CMake记录</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="设置交叉编译目标平台"><a href="#设置交叉编译目标平台" class="headerlink" title="设置交叉编译目标平台"></a>设置交叉编译目标平台</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 软件平台</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_SYSTEM_NAME Generic)</span><br><span class="line"><span class="comment"># 处理器架构</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_HOST_SYSTEM_PROCESSOR arm)</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置交叉编译工具"><a href="#设置交叉编译工具" class="headerlink" title="设置交叉编译工具"></a>设置交叉编译工具</h3><ul>
+<li><input disabled="" type="checkbox"> 针对每项添加说明 </li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(PREFIX <span class="string">"arm-none-eabi-"</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_C_COMPILER <span class="string">"$&#123;PREFIX&#125;gcc"</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_ASM_COMPILER <span class="string">"$&#123;PREFIX&#125;gcc"</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_COMPILER <span class="string">"$&#123;PREFIX&#125;g++"</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_OBJCOPY <span class="string">"$&#123;PREFIX&#125;objcopy"</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_C_AR <span class="string">"$&#123;PREFIX&#125;ar"</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_SIZE <span class="string">"$&#123;PREFIX&#125;size"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span>(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)</span><br><span class="line"><span class="keyword">SET</span>(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)</span><br><span class="line"><span class="keyword">SET</span>(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加文件"><a href="#添加文件" class="headerlink" title="添加文件"></a>添加文件</h2><h3 id="添加头文件"><a href="#添加头文件" class="headerlink" title="添加头文件"></a>添加头文件</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置头文件路径</span></span><br><span class="line"><span class="keyword">set</span>(C_INCLUDES </span><br><span class="line">    <span class="string">"$&#123;PROJECT_SOURCE_DIR&#125;/Core/Inc"</span></span><br><span class="line">    <span class="string">"$&#123;PROJECT_SOURCE_DIR&#125;/Drivers/STM32L4xx_HAL_Driver/Inc"</span></span><br><span class="line">    <span class="string">"$&#123;PROJECT_SOURCE_DIR&#125;/Drivers/STM32L4xx_HAL_Driver/Inc/Legacy"</span></span><br><span class="line">    <span class="string">"$&#123;PROJECT_SOURCE_DIR&#125;/Drivers/CMSIS/Device/ST/STM32L4xx/Include"</span></span><br><span class="line">    <span class="string">"$&#123;PROJECT_SOURCE_DIR&#125;/Drivers/CMSIS/Include"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加源文件"><a href="#添加源文件" class="headerlink" title="添加源文件"></a>添加源文件</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加源文件路径</span></span><br><span class="line"><span class="keyword">set</span>(C_SOURCES </span><br><span class="line">    <span class="string">"$&#123;PROJECT_SOURCE_DIR&#125;/Core/Src/main.c"</span></span><br><span class="line">    <span class="string">"$&#123;PROJECT_SOURCE_DIR&#125;/Core/Src/stm32l4xx_it.c"</span></span><br><span class="line">    ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加汇编文件"><a href="#添加汇编文件" class="headerlink" title="添加汇编文件"></a>添加汇编文件</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加汇编源文件</span></span><br><span class="line"><span class="keyword">set</span> (ASM_SOURCES</span><br><span class="line">    <span class="string">"$&#123;PROJECT_SOURCE_DIR&#125;/startup_stm32l475xx.s"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="添加编译标志"><a href="#添加编译标志" class="headerlink" title="添加编译标志"></a>添加编译标志</h2><h3 id="针对平台标志"><a href="#针对平台标志" class="headerlink" title="针对平台标志"></a>针对平台标志</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cpu</span></span><br><span class="line"><span class="keyword">set</span>(CPU <span class="string">"-mcpu=cortex-m4"</span>)</span><br><span class="line"><span class="comment"># fpu</span></span><br><span class="line"><span class="keyword">set</span>(FPU <span class="string">"-mfpu=fpv4-sp-d16"</span>)</span><br><span class="line"><span class="comment"># float-abi</span></span><br><span class="line"><span class="keyword">set</span>(FLOAT-ABI <span class="string">"-mfloat-abi=hard"</span>)</span><br><span class="line"><span class="comment"># mcu</span></span><br><span class="line"><span class="keyword">set</span>(MCU <span class="string">"$&#123;CPU&#125; -mthumb $&#123;FPU&#125; $&#123;FLOAT-ABI&#125;"</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="汇编标志"><a href="#汇编标志" class="headerlink" title="汇编标志"></a>汇编标志</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(ASFLAGS <span class="string">"$&#123;MCU&#125; $&#123;AS_DEFS&#125; $&#123;AS_INCLUDES&#125; $&#123;OPT&#125; -Wall -fdata-sections -ffunction-sections -x assembler-with-cpp"</span> )</span><br></pre></td></tr></table></figure>
+
+<h3 id="C标志"><a href="#C标志" class="headerlink" title="C标志"></a>C标志</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(CFLAGS <span class="string">"$&#123;MCU&#125; $&#123;C_DEFS&#125; $&#123;OPT&#125; -Wall -fdata-sections -ffunction-sections"</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="DEBUG模式"><a href="#DEBUG模式" class="headerlink" title="DEBUG模式"></a>DEBUG模式</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> 增加编译模式</li>
+</ul>
+<h2 id="编译声明"><a href="#编译声明" class="headerlink" title="编译声明"></a>编译声明</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_definitions</span>(</span><br><span class="line">    <span class="string">"-DUSE_HAL_DRIVER"</span></span><br><span class="line">    <span class="string">"-DSTM32L475xx"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h2 id="链接设置"><a href="#链接设置" class="headerlink" title="链接设置"></a>链接设置</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/24/%E6%8E%92%E5%BA%8F%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E6%AF%94%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%9B%B4%E5%8F%97%E6%AC%A2%E8%BF%8E%EF%BC%9F/" rel="next" title="排序（上）：为什么插入排序比冒泡排序更受欢迎？">
+                <i class="fa fa-chevron-left"></i> 排序（上）：为什么插入排序比冒泡排序更受欢迎？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/24/gcc/" rel="prev" title="gcc">
+                gcc <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">王秀峰</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CMake记录"><span class="nav-number">1.</span> <span class="nav-text">CMake记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">1.1.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置交叉编译目标平台"><span class="nav-number">1.1.1.</span> <span class="nav-text">设置交叉编译目标平台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置交叉编译工具"><span class="nav-number">1.1.2.</span> <span class="nav-text">设置交叉编译工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加文件"><span class="nav-number">1.2.</span> <span class="nav-text">添加文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加头文件"><span class="nav-number">1.2.1.</span> <span class="nav-text">添加头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加源文件"><span class="nav-number">1.2.2.</span> <span class="nav-text">添加源文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加汇编文件"><span class="nav-number">1.2.3.</span> <span class="nav-text">添加汇编文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加编译标志"><span class="nav-number">1.3.</span> <span class="nav-text">添加编译标志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#针对平台标志"><span class="nav-number">1.3.1.</span> <span class="nav-text">针对平台标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#汇编标志"><span class="nav-number">1.3.2.</span> <span class="nav-text">汇编标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C标志"><span class="nav-number">1.3.3.</span> <span class="nav-text">C标志</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DEBUG模式"><span class="nav-number">1.4.</span> <span class="nav-text">DEBUG模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译声明"><span class="nav-number">1.5.</span> <span class="nav-text">编译声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链接设置"><span class="nav-number">1.6.</span> <span class="nav-text">链接设置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王秀峰</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
