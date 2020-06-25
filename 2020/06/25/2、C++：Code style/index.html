@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="王秀峰的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="任何人都能写出机器能看懂的代码，但只有优秀的程序员才能写出人能看懂的代码 参考：OpenResty® C 代码风格指南 代码格式恰当地运用空格和空行123456789101112131415161718原始代码if(!value.contains(&quot;xxx&quot;))&amp;#123;  LOGIT(WARNING,&quot;value is incomplete.\n&quot;)  return;&amp;#125;char su">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2、C++：Code style">
+<meta property="og:url" content="http://yoursite.com/2020/06/25/2%E3%80%81C++%EF%BC%9ACode%20style/index.html">
+<meta property="og:site_name" content="王秀峰的博客">
+<meta property="og:description" content="任何人都能写出机器能看懂的代码，但只有优秀的程序员才能写出人能看懂的代码 参考：OpenResty® C 代码风格指南 代码格式恰当地运用空格和空行123456789101112131415161718原始代码if(!value.contains(&quot;xxx&quot;))&amp;#123;  LOGIT(WARNING,&quot;value is incomplete.\n&quot;)  return;&amp;#125;char su">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-25T01:23:11.925Z">
+<meta property="article:modified_time" content="2020-06-25T01:23:11.925Z">
+<meta property="article:author" content="王秀峰">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/25/2、C++：Code style/"/>
+
+
+
+
+
+  <title>2、C++：Code style | 王秀峰的博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王秀峰的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/25/2%E3%80%81C++%EF%BC%9ACode%20style/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王秀峰">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王秀峰的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2、C++：Code style</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-25T09:23:11+08:00">
+                2020-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong><em>任何人都能写出机器能看懂的代码，但只有优秀的程序员才能写出人能看懂的代码</em></strong></p>
+<p>参考：<br><a href="http://openresty.org/cn/c-coding-style-guide.html" target="_blank" rel="noopener">OpenResty® C 代码风格指南</a></p>
+<h2 id="代码格式"><a href="#代码格式" class="headerlink" title="代码格式"></a>代码格式</h2><h3 id="恰当地运用空格和空行"><a href="#恰当地运用空格和空行" class="headerlink" title="恰当地运用空格和空行"></a>恰当地运用空格和空行</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">原始代码</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!value.contains(<span class="string">"xxx"</span>))&#123;</span><br><span class="line">  LOGIT(WARNING,<span class="string">"value is incomplete.\n"</span>)</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">char</span> suffix[<span class="number">16</span>]=<span class="string">"xxx"</span>;</span><br><span class="line"><span class="keyword">int</span>  data_len = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">if</span>(!value.empty()&amp;&amp;value.contains(<span class="string">"tom"</span>))&#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span>* name=value.c_str();</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;MAX_LEN;i++)&#123;</span><br><span class="line">    ...  <span class="comment">// do something</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="built_in">strlen</span>(name);i++)&#123;</span><br><span class="line">    ... <span class="comment">// do something  </span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改善之后的代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!value.contains(<span class="string">"xxx"</span>)) &#123;                    <span class="comment">// if后&#123;前有空格</span></span><br><span class="line">  LOGIT(WARNING, <span class="string">"value is incomplete.\n"</span>)        <span class="comment">// 逗号后有空格</span></span><br><span class="line">  <span class="keyword">return</span>;                                      <span class="comment">// 逻辑联系紧密就不用加空行</span></span><br><span class="line">&#125;</span><br><span class="line">                                                  <span class="comment">// 新增空行分隔段落</span></span><br><span class="line"><span class="keyword">char</span> suffix[<span class="number">16</span>] = <span class="string">"xxx"</span>;                          <span class="comment">// 等号两边有空格</span></span><br><span class="line"><span class="keyword">int</span> data_len = <span class="number">100</span>;                            <span class="comment">// 逻辑联系紧密就不用加空行</span></span><br><span class="line">                                                  <span class="comment">// 新增空行分隔段落</span></span><br><span class="line"><span class="keyword">if</span> (!value.empty() &amp;&amp; value.contains(<span class="string">"tom"</span>)) &#123;   <span class="comment">// &amp;&amp;两边有空格</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span>* name = value.c_str();              <span class="comment">// 等号两边有空格</span></span><br><span class="line">                                                  <span class="comment">// 新增空行分隔段落</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; MAX_LEN; i++)&#123;              <span class="comment">// =;&lt;处有空格</span></span><br><span class="line">    ...  <span class="comment">// do something</span></span><br><span class="line">  &#125;</span><br><span class="line">                                                  <span class="comment">// 新增空行分隔段落</span></span><br><span class="line">  <span class="keyword">int</span> count = <span class="number">0</span>;                                  <span class="comment">// 等号两边有空格</span></span><br><span class="line">                                                  <span class="comment">// 新增空行分隔段落</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(name); i++)&#123;          <span class="comment">// =;&lt;处有空格</span></span><br><span class="line">    ... <span class="comment">// do something  </span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="标识符命名"><a href="#标识符命名" class="headerlink" title="标识符命名"></a>标识符命名</h2><ul>
+<li>匈牙利命名法</li>
+</ul>
+<p>就是给成员变量加“m_”前缀（member），给全局变量加“g_”前缀（global），比如 m_count、g_total，这样一看就知道了变量的作用域，在大型程序里还是挺有用的。</p>
+<ul>
+<li>第二种风格叫驼峰式命名法（CamelCase）</li>
+</ul>
+<p>主张单词首字母大写，比如 MyJobClass、tryToLock，但这种风格在 C++ 世界里的接受程度不是太高。</p>
+<ul>
+<li>第三种风格叫“snake_case”</li>
+</ul>
+<p>用的是全小写，单词之间用下划线连接。这是 C 和 C++ 主要采用的命名方式，看一下标准库，里面的 vector、unordered_set、shrink_to_fit 都是这样。</p>
+<h3 id="起名的四个规则"><a href="#起名的四个规则" class="headerlink" title="起名的四个规则"></a>起名的四个规则</h3><ul>
+<li>变量、函数名和名字空间用 snake_case，全局变量加“g_”前缀；</li>
+<li>自定义类名用 <strong>CamelCase</strong>，成员函数用 snake_case，成员变量加“m_”前缀；</li>
+<li>宏和常量应当全大写，单词之间用下划线连接；</li>
+<li>尽量不要用下划线作为变量的前缀或者后缀（比如 _local、name_），很难识别。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  MAX_PATH_LEN  256             <span class="comment">//常量，全大写</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> g_sys_flag;                        <span class="comment">// 全局变量，加g_前缀</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> linux_sys &#123;                <span class="comment">// 名字空间，全小写</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">get_rlimit_core</span><span class="params">()</span></span>;               <span class="comment">// 函数，全小写</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FilePath</span> <span class="title">final</span>                 // 类名，首字母大写</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">set_path</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; str)</span></span>;    <span class="comment">// 函数，全小写</span></span><br><span class="line"><span class="keyword">private</span>:  </span><br><span class="line">  <span class="built_in">string</span> m_path;                      <span class="comment">// 成员变量，m_前缀 </span></span><br><span class="line">  <span class="keyword">int</span>    m_level;                     <span class="comment">// 成员变量，m_前缀</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong><em>变量 / 函数的名字长度与它的作用域成正比</em></strong>,也就是说，局部变量 / 函数名可以短一点，而全局变量 / 函数名应该长一点。</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>对于 C++ 来说，也有一个类似的工具叫 Doxgen，用好它甚至可以直接从源码生成完整的 API 文档</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>用好空格和空行，多留白，让写代码就像写诗一样；</li>
+<li>给变量、函数、类起个好名字，你的代码就成功了一半；</li>
+<li>给变量、函数、类再加上注释，让代码自带文档，就成了“人能够看懂的代码”</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/24/gcc/" rel="next" title="gcc">
+                <i class="fa fa-chevron-left"></i> gcc
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/25/1%E3%80%81C++%EF%BC%9A%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F/" rel="prev" title="1、C++：生命周期和编程范式">
+                1、C++：生命周期和编程范式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">王秀峰</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码格式"><span class="nav-number">1.</span> <span class="nav-text">代码格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#恰当地运用空格和空行"><span class="nav-number">1.1.</span> <span class="nav-text">恰当地运用空格和空行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标识符命名"><span class="nav-number">2.</span> <span class="nav-text">标识符命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#起名的四个规则"><span class="nav-number">2.1.</span> <span class="nav-text">起名的四个规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">3.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王秀峰</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
